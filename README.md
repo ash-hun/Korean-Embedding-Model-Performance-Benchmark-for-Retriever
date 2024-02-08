@@ -1,46 +1,43 @@
-# Korean-Embedding-Model-Performance-Benchmark-for-Retriever
-Korean Sentence Embedding Model Performance Benchmark for RAG System
+<div align='center'>
+  <h1>Korean-Embedding-Model-Performance-Benchmark-for-Retriever</h1>
+  <p>This is an experiment on search performance benchmarks after applying DAPT to Korean embedding models with various performances for the RAG system for a specific domain.</p>
+</div>
 
-## Ⅰ. 개요
+---  
 
-#### **1. 실험목표**
-  > 한국어 임베딩 모델에 Domain Adaptation을 진행함과 동시에 하이퍼파라미터 조정에 따라 Retriever 성능변화가 얼마나 일어나는지 실험하고자한다.
+## Ⅰ. 실험개요
 
-#### **2. 실험배경**
+### **1. 목표**
+  > 특정 Domain에 관한 Retrieval-Augmented Generation (이하, RAG)를 수행하는데 있어 Embedding Model의 성능변화가 Domain Adaptation (이하 DAPT)적용 이후에 얼마나 유지가 되는지에 대한 실험을 수행하고자 함.
 
-- 기존 프로젝트의 후속실험으로 자세한 내용은 아래 항목을 참고할 것.  
+### **2. 배경**
+
+- **기존 프로젝트의 후속실험으로 자세한 내용은 아래 항목을 참고할 것.**  
   - [SSiS TeamA - Ask-for-Welfare Service](https://github.com/ash-hun/Ask-for-Welfare)  
   - [SSiS TeamB - Advanced Semantic Search Engine](https://github.com/SSiS-TeamB/RAG)  
     
-- Domain Adaptation과 RAG
+- **Domain Adaptation과 RAG**
   - 공통적으로 복지 도메인에 특화된 RAG System을 구축하고자 함.
    
-  - 범용 Korean Embedding Model을 복지 도메인에 특화되게 DAPT(Domain Adaptation)을 적용하였음.
-    - 한국어 Embedding Model 중 AVG Score가 가장 높은 `KoSimCSE-RoBERTa-multitask` Model 사용  
+  - 범용 Korean Embedding Model을 복지 도메인에 특화되게 DAPT 수행하였음.
+    - 기존 프로젝트에서는 AVG Score가 가장 높은 `KoSimCSE-RoBERTa-multitask` 사용  
 
-  - DAPT와 RAG System에서의 상관관계 개선 필요성 발견  
-    - Retriever 결과의 미흡함 확인
-    - 더 나은 성과를 위해 추가적인 실험(=DAPT, Algorithm, etc..)과 비교 분석 필요
+### **3. 내용**
+- **기획**
+   - 가설정의
+     - 특정 Domain에 대해 RAG를 수행하는데 있어서, 임베딩 모델의 기본성능이 높을수록 DAPT를 수행했을 시 더 높은 Retriever 성능을 보일 것이다.
+   - 데이터셋 생성 및 정제
+     - [복지로](https://www.bokjiro.go.kr/ssis-tbu/index.do)에서 오픈소스로 공개된 `2023 나에게 힘이 되는 복지서비스` pdf 책자를 이용해 추가적인 데이터셋을 생성
+   - 기존 프로젝트와 동일한 RAG System을 채용하였으며 Retriever이 잘 되는지 아닌지 평가하기 위해 hitrate를 평가지표로써 채택하였다.
 
-#### 3. 실험환경
-- 기획
-   - [복지로](https://www.bokjiro.go.kr/ssis-tbu/index.do)에서 오픈소스로 공개된 `2023 나에게 힘이 되는 복지서비스` pdf 책자를 이용해 추가적인 데이터셋을 생성하여 실험을 진행
-   - `KoSimCSE-RoBERTa-multitask`을 사용했으나 타 임베딩 모델과의 성능비교가 필요
-   - 특정 하이퍼파라미터 조합에 따라 추가적인 성능개선이 가능성 확보
-
-- 사용 라이브러리
-
+- **환경구성**
 
       $ pip install -r requirement.txt
 
 
-## Ⅱ. 가정
-  위 내용을 통해 기존 프로젝트에서 적용된 방식은 근거와 실험절차가 충분치 않으며 이를 보강할 수 있는 후속작업이 필요하다.  
-  즉, **임베딩 모델의 기본성능이 높으면 높을수록 DAPT를 진행했을시 더 높은 성능을 보일것**이라는 가정을 세우고 이를 증명하기 위한 실험을 진행하려고 한다. 
+## Ⅱ. 실험내용
 
-## Ⅲ. 방법
-
-#### 1. 데이터셋 생성
+### 1. 데이터셋 생성
 1. 생성방식
    
     - 데이터 전처리
@@ -108,7 +105,7 @@ Korean Sentence Embedding Model Performance Benchmark for RAG System
    - 비용: 약 90.2$
    - [OpenAI API Pricing](https://openai.com/pricing) 참조
 
-#### 2. 성능비교
+### 2. 성능비교
   1. 고성능의 Retriever 결과도출을 위한 다양한 한국어 문장 임베딩 모델들에 대한 성능비교 (HitRate)
     1. 다양한 한국어 문장 임베딩 모델 리스트업
       - 모델 선정이유/근거
@@ -126,12 +123,40 @@ Korean Sentence Embedding Model Performance Benchmark for RAG System
 
   3. RAG System 적용
 
-## Ⅳ. 실험결과 (※ 전/후 결과비교가 중요)
-  1. Embedding Model 비교/선정  
-  2. Retreiver 성능측정  
-    1. Embedding Model 교체 전/후 Retriever 성능비교  
-    2. BM25, Re-Rank, Filtering 적용 전/후 Retriever 성능비교  
-  3. 최종 실험결과 도출  
+## Ⅳ. 실험결과 
+  ![alt text](image.png)
+ 
+| Model                                       | @1     | @3     | @5     | @10    | Average |
+|---------------------------------------------|--------|--------|--------|--------|---------|
+| paraphrase-multilingual-mpnet-base-v2-a     | 40.0   | 58.095 | 63.81  | 73.333 | 58.810  |
+| paraphrase-multilingual-mpnet-base-v2-b     | 36.19  | 59.048 | 61.905 | 69.524 | 56.667  |
+| paraphrase-multilingual-MiniLM-L12-v2-a     | 25.714 | 41.905 | 51.429 | 62.857 | 45.476  |
+| paraphrase-multilingual-MiniLM-L12-v2-b     | 24.762 | 35.238 | 42.857 | 51.429 | 38.571  |
+| distiluse-base-multilingual-cased-v2-a      | 24.762 | 39.048 | 47.619 | 59.048 | 42.619  |
+| distiluse-base-multilingual-cased-v2-b      | 22.857 | 40.952 | 50.476 | 57.143 | 42.857  |
+| stsb-xlm-r-multilingual-a                   | 20.952 | 33.333 | 41.905 | 53.333 | 37.381  |
+| stsb-xlm-r-multilingual-b                   | 11.429 | 19.048 | 19.048 | 20.0   | 17.381  |
+| ko-sroberta-multitask-a                     | 49.524 | 69.524 | 77.143 | 81.905 | 69.524  |
+| ko-sroberta-multitask-b                     | 53.333 | 71.429 | 78.095 | 84.762 | 71.905  |
+| KR-SBERT-V40K-klueNLI-augSTS-a              | 37.143 | 54.286 | 63.81  | 72.381 | 56.905  |
+| KR-SBERT-V40K-klueNLI-augSTS-b              | 32.381 | 56.19  | 63.81  | 72.381 | 56.191  |
+| moco-sentencedistilbertV2.1-a               | 7.619  | 11.429 | 11.429 | 20.0   | 12.619  |
+| moco-sentencedistilbertV2.1-b               | 20.952 | 25.714 | 27.619 | 30.476 | 26.190  |
+| kpf-sbert-128d-v1-a                         | 21.905 | 37.143 | 44.762 | 50.476 | 38.571  |
+| kpf-sbert-128d-v1-b                         | 27.619 | 40.0   | 45.714 | 49.524 | 40.714  |
+| M-BERT-Distil-40-a                          | 5.714  | 10.476 | 13.333 | 19.048 | 12.143  |
+| M-BERT-Distil-40-b                          | 4.762  | 12.381 | 18.095 | 24.762 | 15.000  |
+| canine-c-a                                  | 0.952  | 4.762  | 5.714  | 6.667  | 4.524   |
+| canine-c-b                                  | 1.905  | 5.714  | 7.619  | 10.476 | 6.429   |
+| roberta-ko-small-tsdae-a                    | 16.19  | 23.81  | 27.619 | 37.143 | 26.191  |
+| roberta-ko-small-tsdae-b                    | 10.476 | 20.952 | 23.81  | 35.238 | 22.619  |
+| KoSimCSE-roberta-multitask-a                | 37.143 | 58.095 | 63.81  | 72.381 | 57.857  |
+| KoSimCSE-roberta-multitask-b                | 40.952 | 59.048 | 65.714 | 77.143 | 60.714  |
+| text-embedding-ada-002-a                    | 41.905 | 47.619 | 57.143 | 60.0   | 51.667  |
+| text-embedding-ada-002-b                    | 36.19  | 45.714 | 47.619 | 50.476 | 45.000  |
+
+최종적으로 `ko-sroberta-multitask` 가 가장 높은 평균 수치를 가졌고 “특정 Domain에 대해 RAG를 수행하는데 있어서, 임베딩 모델의 기본성능이 높을수록 DAPT를 수행했을 시 더 높은 Retriever 성능을 보일 것이다.”라는 우리의 가정은 100% 틀린 것은 아니었다. 확인결과 Embedding Model의 성능이 높을수록 Domain Adaptation을 진행 후에도 전반적으로 높은 수치를 기록함을 알 수 있었다.  
+즉, 가장 높은 성능의 임베딩 모델이 Adaptation 후에도 가장 높은 성능을 기록한다고 말할 수는 없어도 일반 적인 경향성은 따라간다고 말할 수 있다.
 
 ## Ⅴ. 컨트리뷰터
 
@@ -175,6 +200,3 @@ Korean Sentence Embedding Model Performance Benchmark for RAG System
     </td>
   </tr>
 </table>
-
-### Ⅵ. 참고자료
-  1. 참조한 자료 목록
